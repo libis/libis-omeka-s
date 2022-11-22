@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  omeka-s:
+    build: ./
+    ports:
+      - "9015:80"
+    volumes:
+      - ./modules/:/var/www/html/libis/modules/
+      - ./themes/:/var/www/html/libis/themes/
+      - ./files/:/var/www/html/libis/files/
+      - ./config/:/var/www/html/libis/config/
+      - ./htaccess:/var/www/html/libis/.htaccess
+      - ./imagemagick-policy.xml:/var/www/html/libis/imagemagick-policy.xml
+    restart: "no"
