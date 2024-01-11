@@ -16,7 +16,7 @@ class ItemShowcase extends AbstractBlockLayout
 
     public function getLabel()
     {
-        return 'Item showcase'; // @translate
+        return 'Item PDF showcase'; // @translate
     }
 
     public function form(

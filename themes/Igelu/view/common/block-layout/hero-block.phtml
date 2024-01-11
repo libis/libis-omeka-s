@@ -1,0 +1,31 @@
+<?php
+  $url = '';
+  if($attachments):
+    $media = $attachments[0]->media();
+
+    $url = '';
+    if($media):
+      $url = $media->thumbnailUrl('large');
+      $url = str_replace('http:', '', $url);
+    endif;
+  endif;
+?>
+<div class="jumbotron2 kuleuven-banner">
+  <div class="card card-banner card-50-50-right">
+    <div class="card-img-right" style="background-image: url(<?php echo $url;?>);">
+      <div class="banner-info" style="font-size:60%;"><?php echo $attachments[0]->caption();?></div>
+    </div>
+    <div class="card-body">
+      <?php if($block->dataValue('sec_title')):?>
+        <h2><?php echo $block->dataValue('sec_title');?></h2>
+      <?php endif;?>
+      <h1><?php echo $block->dataValue('title');?></h1>
+
+      <p><?php echo $block->dataValue('text');?></p>
+
+      <div class="inline">
+        <div class="inline-item"><a class="btn btn-primary" href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>"><?php echo $block->dataValue('link_text');?></a></div>
+      </div>
+    </div>
+  </div>
+</div>

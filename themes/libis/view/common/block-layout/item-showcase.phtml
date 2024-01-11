@@ -1,0 +1,57 @@
+<?php
+$translate = $this->plugin('translate');
+?>
+
+<section class="section">
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-bottom: 5px;">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownbutton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <?php echo $translate('Select LIBISzine...');?>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownbutton">
+                <?php $i = 1; ?>
+                <?php foreach ($attachments as $attachment): ?>
+                    <?php
+                    $media = $attachment->media();
+                    $titleFile = $media->displayTitle();
+                    ?>
+                    <a class="dropdown-item <?php if ($i == 1):?>active<?php endif;?>" id="buttontab<?php echo $i;?>" value="<?php echo $titleFile; ?>" onclick="ChangeTab('tab<?php echo $i;?>')"><?php echo $titleFile; ?></a>
+                    <?php $i++;?>
+                <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tab-content">
+            <?php $i = 1; ?>
+            <?php foreach ($attachments as $attachment): ?>
+                <?php
+                $media = $attachment->media();
+                $oUrl = $media->originalUrl(); 
+                $originalUrl = str_replace('http://', 'http://', $oUrl);
+                $oUrl = $originalUrl;
+                ?>
+                <div class="tab-pane <?php if ($i == 1):?>active<?php endif;?>" id="tab<?php echo $i;?>">
+                    <div class="justify-content-center d-flex">
+                        <iframe allowfullscreen="true" src="<?php echo $oUrl; ?>" style="width: 100%; max-width: 800px; height: 800px;"></iframe>
+                    </div>
+                </div>
+                <?php $i++;?>
+            <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function ChangeTab(tab){
+        let selection =document.querySelector("#button" + tab).innerHTML;
+        let toggle =document.querySelector("#dropdownbutton");
+        toggle.innerHTML = selection;
+        $(".dropdown-item").removeClass("active");
+        $(".tab-pane").removeClass("active");
+        $("." + tab).addClass("active");
+        $("#" + tab).addClass("active");
+    }
+</script>

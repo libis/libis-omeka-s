@@ -1,0 +1,612 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+$siteTitle = $site->title();
+$this->htmlElement('html')->setAttribute('lang', $this->lang());
+$this->headMeta()->setCharset('utf-8');
+$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
+$this->headTitle($siteTitle)->setSeparator(' · ');
+$this->headTitle()->append($this->setting('installation_title', 'Omeka S'));
+$this->headLink()->prependStylesheet($this->assetUrl('css/style.min.css'));
+$this->headLink()->prependStylesheet($this->assetUrl('css/selectize.css'));
+//$this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
+//$this->headLink()->prependStylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700italic,700');
+$this->headScript()->prependFile($this->assetUrl('js/default.js'));
+$this->headScript()->prependFile($this->assetUrl('js/slick.js'));
+$this->headScript()->prependFile($this->assetUrl('js/clamp.min.js'));
+$this->headScript()->prependFile($this->assetUrl('js/selectize.js'));
+
+$this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
+$this->headScript()->prependFile($this->assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
+$this->trigger('view.layout');
+$userBar = $this->userBar();
+
+$url = $this->serverUrl(true);
+//echo 'url:'.$url;
+
+$colour = 'none';
+
+if (strpos($url, '/home') !== false) {
+    $home = true;
+    $colour = 'rgb(0,64,112)';
+    $hovercolour = 'rgb(20,127,161)';
+    $textcolour = 'rgb(0,64,112)';
+}else{
+  $home = false;
+}
+if (strpos($url, '/TeamNetwork') !== false) {
+  $aboutus = true;
+  $colour = 'rgb(0,64,112)';
+  $hovercolour = 'rgb(20,127,161)';
+  $textcolour = 'rgb(0,64,112)';
+}else{
+$aboutus = false;
+}
+if ((strpos($url, '/archive') !== false) || (strpos($url, '/archief') !== false)) {
+  $lias = true;
+  $colour = 'rgb(246,137,51)'; // 252,179,21 | 255, 207, 6
+  $hovercolour = 'rgb(252,179,21)';
+  $textcolour = 'rgb(246,137,51)';
+  $logo = $this->assetUrl('img/lias.png');
+}else{
+$lias = false;
+}
+if ((strpos($url, '/library') !== false) || (strpos($url, '/limo') !== false) || (strpos($url, '/alma') !== false) || (strpos($url, '/libisnet-workinggroups') !== false) || (strpos($url, '/libisnet-werkgroepen') !== false) || (strpos($url, '/bibliotheek') !== false)) {
+  $libisnet = true;
+  $colour = 'rgb(141,161,32)'; //193, 215, 46
+  $hovercolour = 'rgb(193, 215, 46)';
+  $textcolour = 'rgb(141,161,32)';
+  $logo = $this->assetUrl('img/libisnet.png');
+}else{
+$libisnet = false;
+}
+if ((strpos($url, '/heritage') !== false) || (strpos($url, '/erfgoed') !== false)) {
+  $heron = true;
+  $colour = 'rgb(136,19,98)'; // 202, 45, 146
+  $hovercolour = 'rgb(202, 45, 146)';
+  $textcolour = 'rgb(136,19,98)';
+  $logo = $this->assetUrl('img/heron.png');
+}else{
+$heron = false;
+}
+?>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<!-- Mdbootstrap -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+></script>
+
+
+<style>
+  body {
+  text-align: justify;
+  word-break: break-word;
+  }
+  .figure {
+    position: relative;
+  }
+  .figure img {
+    display:block;
+  }
+  .figure a {
+    position: absolute;
+    bottom: 16.5;
+    right: 0;
+  }
+  .nav-link {
+    color: #004070;
+  }
+  /* .item img {
+    height: 76px;
+    width: 76px;
+  } */
+  .hidden, .footer-section-2 > .hidden {
+    display: none;
+  }
+
+  /** PRO colours */
+  .local-header .nav-tabs .navigation li.active > a, .local-header .nav-tabs .navigation li.open > a, .local-header .navbar-nav li.active > a, .local-header .navbar-nav li.open > a {
+    background-image: linear-gradient(90deg,<?php echo $colour; ?>,<?php echo $hovercolour; ?>,<?php echo $colour; ?>);
+    color: <?php echo $colour; ?>;
+  }
+  .local-header .nav-tabs .navigation li a, .local-header .navbar-nav li a {
+  color: <?php echo $colour; ?>;
+  transition: background-size .15s ease-in-out;
+  display: block;
+  text-decoration: none;
+  padding: 20px 0;
+  background: linear-gradient(90deg,<?php echo $hovercolour; ?>,<?php echo $hovercolour; ?>) bottom no-repeat;
+    background-size: auto;
+  background-size: 0 4px;
+}
+#flyout-local-menu {
+  background-color: <?php echo $colour;?>;
+}
+#local-header > .navigation > li > a:visited {
+  color: <?php echo $colour; ?>;
+}
+.local-header .nav-tabs .navigation li a:hover {
+  color: <?php echo $hovercolour;?>;
+}
+.local-header .nav-tabs .navigation li.active > a {
+  color: <?php echo $hovercolour;?>;
+}
+.page h2 {
+  color: <?php echo $textcolour;?>;
+}
+.page a {
+  color: <?php echo $textcolour;?>;
+}
+.page a:visited{
+  color: <?php echo $colour; ?>;
+}
+.page a:hover {
+  color: <?php echo $hovercolour;?>;
+}
+.portal-breadcrumbs .breadcrumb-item a:visited {
+  color: <?php echo $colour; ?>;
+}
+.portal-breadcrumbs > .breadcrumb-item > a:hover {
+  color: <?php echo $hovercolour; ?>;
+}
+
+.footer-section-2 .nav-item > .nav-link {
+    padding: 0.2rem 1rem;
+    font-size: 0.9rem;
+}
+.openimage {
+  cursor: zoom-in;
+}
+@media (max-width:980px){
+  .nav-link {
+    width: 100% !important;
+    display: block !important;
+    text-decoration: none !important;
+    text-align: center !important;
+  }
+  .footer-section-2 > .hide-small, .hide-small{
+    display: none !important;
+  }
+  .small-nav{
+    display: flex !important;
+  }
+}
+@media (max-width:800px){
+    .flex-image-figure {
+      flex-direction: column !important;
+    }
+}
+</style>
+
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headStyle(); ?>
+        <?php echo $this->headScript(); ?>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://kit.fontawesome.com/582fb8c29f.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/colcade@0/colcade.js"></script>
+
+        <!-- Google Fonts used in the housestyle -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons&amp;family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap">
+        
+        <!-- Latest compiled and minified CSS -->
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="//stijl.kuleuven.be/releases/latest/css/main.css">
+        <link rel="stylesheet" href="//stijl.kuleuven.be/releases/latest/css/wms.css">
+    </head>
+
+    <?php echo $this->htmlElement('body'); ?>
+    <?php echo $userBar; ?>
+    <div class="l-page">
+      <!-- Include global header-->
+      <nav class="global-header noindex hidden-print" style="border-bottom-width: 15px; background-color:<?php echo $colour; ?>;">
+        <div class="container">
+
+          <a class="navbar-brand" href="<?php echo $site->url(); ?>"><img width="107" height="43" src="<?php echo $this->assetUrl('img/libis_white_jr.png');?>"></a>
+
+          <div class="navbar-menu">
+          <ul class="nav justify-content-end hide-small" style="align-items: center;">
+          <li class="nav-item">
+    <a class="nav-link" href="<?php echo $translate('/en/help');?>">Helpdesk & Helpdocs</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?php echo $translate('/en/home');?>"><?php echo $translate('For KU Leuven');?></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?php echo $translate('/en/news');?>"><?php echo $translate('News');?></a>
+  </li>
+  <li class="nav-item">
+     <a class="is-light nav-link" type="button" id="openSearch">
+        <span class="icon is-small">
+          <i class="fas fa-search"></i>
+        </span>
+      </a>   
+      <div class="hidden" id="searchField"><?php echo $this->partial('common/search-form'); ?></div>
+  </li>
+<li class="nav-item">
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: <?php echo $colour;?>;">
+  <i class="material-icons">language</i>
+        </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" style="text-decoration: none;" href="/pro/home">Nederlands</a></li>
+    <li><a class="dropdown-item" style="text-decoration: none;" href="/pro-en/home">English</a></li>
+  </ul>
+</div>
+</li>
+</ul>
+
+          <div class="controls">
+            
+            <a
+              href="#flyout-local-menu"
+              id="burgernav"
+              class="btn-toggle js-flyout-toggle flyout-toggle collapsed"
+              role="button"
+              aria-expanded="false"
+              aria-controls="flyout-local-menu"
+              data-bs-toggle="collapse"
+              data-bs-target="#flyout-local-menu">
+              <span class="lines"></span>
+            </a>
+
+          </div>
+        </div>
+      </nav>
+
+
+
+      <!-- Include local header-->
+      <nav class="local-header" style="border: none;">
+        <div class="container container-relative">
+          <nav class="nav-header">
+            
+              <?php if($home == false && $aboutus == false){?>
+              <img style="float: left; height: 30px;" width="auto"  src="<?php echo $logo;?>">
+              <?php };?>
+              <h2>
+              <a
+                href="#"
+                class="btn-toggle hidden-lg-up"
+                role="button"
+                aria-expanded="false"
+                data-bs-toggle="collapse"
+                data-bs-target="#local-header"
+                aria-controls="local-header"
+              >
+                <span class="lines"></span>
+              </a>
+            </h2>
+</nav>   
+          <nav class="nav-tabs collapse" id="local-header">
+            <?php
+              echo $site->publicNav()->menu()->renderMenu(null, [
+                  'maxDepth' => $this->themeSetting('nav_depth') - 1
+              ]);
+            ?>
+          </nav>
+            </div>
+          </nav>
+
+<?php if($home){ ?>
+          <section class="section" style="background:url('<?php echo $this->assetUrl('img/HR_STERREN_flip.png'); ?>') no-repeat center center;background-size: cover; margin-top: 10px;">
+            <div class="container">
+              <div class="row" >
+                <div class="col-md-6" style="color: white;">
+                <div style="background-color: rgba(0, 0, 0, 0.4); padding: 5%;">
+                  <p>
+                  <?php echo $translate("LIBIS is an IT organization and scientific service provider, responsible for the deployment and management of systems and processes to support a FAIR approach to various collections and research data of KU Leuven, the Association and its partners. In close collaboration with research groups, we use our data driven expertise in the development of virtual research environments through participation in (inter)national projects, networks and research.");?>
+                  </p>
+                </div>
+                </div>
+              </div>
+            </div>
+          </section>
+  <?php };?>
+
+      <div class="wrapper">       
+        <?php echo $this->content; ?>            
+      </div> 
+  </div> 
+
+
+    <!-- Include local footer--><!-- LOCAL FOOTER -->
+    <footer class="local-footer">
+      <div class="footer-info">
+        
+      </div>
+      <div class="footer-navbar" style="background-color:<?php echo $colour;?>; padding: 5px 0px;">
+        <div class="container">
+        <?php if ($footerContent = $this->themeSetting('footer')): ?>
+          <?php echo $footerContent; ?>        
+        <?php endif; ?>
+          <div class="fheader row container">
+            <div class="flogo"><a href="<?php echo $site->url(); ?>"><img width="107" height="38" src="<?php echo $this->assetUrl('img/libis_white_jr.png');?>"></a></div>
+            
+          </div>
+          <div id="subnav" class="row"></div>
+          
+        </div>
+        <!-- end container -->
+      </div>
+      <!-- end container -->      
+      <!-- end footer-info -->
+    </footer>
+    <!-- END LOCAL FOOTER -->
+    <div class="section footer-section-2" style="padding: 1.5rem 0;background-color:f3f0ec; color:black;">
+      <div class="btn-toolbar justify-content-center hide-small" role="toolbar" aria-label="Toolbar with button groups" style="padding-left: 5%; padding-right:5%;">
+      <div class="btn-group me-2" role="group" aria-label="First group" style="box-shadow:none;">
+
+      <h2 class="title is-5"><?php echo $translate('About us');?></h2>
+      <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $translate('/pro-en/TeamNetwork');?>"><?php echo $translate('Our mission');?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $translate('/en/meetourteam');?>"><?php echo $translate('Our team');?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $translate('/en/history');?>"><?php echo $translate('Our history');?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $translate('/en/partners');?>"><?php echo $translate('Our partners');?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $translate('http://www.kuleuven.be/english');?>">KU Leuven</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $translate('https://bib.kuleuven.be/english');?>"><?php echo $translate('KU Leuven Libraries');?></a>
+          </li>
+        </ul>
+
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Second group" style="box-shadow:none;">
+  <h2 class="title is-5"><?php echo $translate('Need Info?');?></h2>
+    <ul class="nav flex-column">
+    <li class="nav-item">
+    <a class="nav-link" href="<?php echo $translate('/en/help');?>">Helpdesk & helpdocs</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?php echo $translate('/en/contact');?>"><?php echo $translate('Contact us');?></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?php echo $translate('/en/showcases');?>">Showcases</a>
+  </li>
+</ul>
+  </div>
+  <div class="btn-group hide-small" role="group" aria-label="Third group" style="box-shadow:none;">
+  <h2 class="title is-5"><?php echo $translate('Our services');?></h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/en/CollectionsData');?>"><?php echo $translate('Collections & Data');?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/en/ServiceTools');?>"><?php echo $translate('Services & Tools');?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/en/ExpertiseConsultancy');?>"><?php echo $translate('Expertise & Consultancy');?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/en/ResearchInfrastructure');?>"><?php echo $translate('Research infrastructure');?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/pro-en/library');?>"><?php echo $translate('Library');?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/pro-en/archive');?>"><?php echo $translate('Archive');?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $translate('/pro-en/heritage');?>"><?php echo $translate('Heritage');?></a>
+      </li>
+    </ul>
+</div>
+<div class="btn-group me-2" role="group" aria-label="Fourth group" style="box-shadow:none;">
+
+<h2 class="title is-5"><?php echo $translate('Our solutions');?></h2>
+  <ul class="nav flex-column">
+  <li class="nav-item">
+      <a class="nav-link" href="https://limo.libis.be">Limo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://lirias2.kuleuven.be/">Lirias</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://rdr.kuleuven.be/">RDR</a>
+    </li>
+  </ul>
+
+</div>
+      </div>
+<!-- MOBILE MENU -->
+
+<div class="row small-nav hidden">
+  <div class="col-xs-6">
+    <div class="btn-group">
+    <a class="btn btn-lg dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    <?php echo $translate('About Us');?>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="<?php echo $translate('/pro-en/TeamNetwork');?>"><?php echo $translate('Our mission');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/meetourteam');?>"><?php echo $translate('Our team');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/history');?>"><?php echo $translate('Our history');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/partners');?>"><?php echo $translate('Our partners');?></a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('http://www.kuleuven.be/english');?>">KU Leuven</a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('https://bib.kuleuven.be/english');?>"><?php echo $translate('KU Leuven Libraries');?></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="btn-group">
+      <a class="btn btn-lg dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      <?php echo $translate('Need Info?');?>
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/help');?>">Helpdesk & helpdocs</a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/contact');?>"><?php echo $translate('Contact us');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/showcases');?>">Showcases</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="btn-group">
+    <a class="btn btn-lg dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    <?php echo $translate('Our services');?>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/CollectionsData');?>"><?php echo $translate('Collections & Data');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/ServiceTools');?>"><?php echo $translate('Services & Tools');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/ExpertiseConsultancy');?>"><?php echo $translate('Expertise & Consultancy');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/en/ResearchInfrastructure');?>"><?php echo $translate('Research infrastructure');?></a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/pro-en/library');?>"><?php echo $translate('Library');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/pro-en/archive');?>"><?php echo $translate('Archive');?></a></li>
+        <li><a class="dropdown-item" href="<?php echo $translate('/pro-en/heritage');?>"><?php echo $translate('Heritage');?></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="btn-group">
+      <a class="btn btn-lg dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      <?php echo $translate('Our solutions');?>
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" href="https://limo.libis.be">Limo</a></li>
+        <li><a class="dropdown-item" href="https://lirias2.kuleuven.be/">Lirias</a></li>
+        <li><a class="dropdown-item" href="https://rdr.kuleuven.be/">RDR</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- MOBILE MENU END -->
+</div>
+<!-- END MENU -->
+
+    </div><a class="scroll-to-top" href="#top" style="display: block;">
+      <i class="material-icons">keyboard_arrow_up</i></a>
+
+    </div>
+    <!-- Include flyout-->
+    <aside
+      class="flyout flyout-default l-flyout noindex hidden-print hidden-lg-up collapse"
+      id="flyout-local-menu"
+    >
+    <nav class="nav nav-logo">
+    <a id="close-x" href="#" class="btn-toggle hidden-lg-up js-flyout-toggle flyout-toggle" role="button" aria-expanded="true" aria-controls="flyout-menu" data-bs-toggle="collapse" data-bs-target="#flyout-local-menu">
+        <span class="arrow"></span></a>      
+    </nav>
+
+    <nav class="nav nav-main">
+      <a href="<?php echo $site->url(); ?>"><?php echo $site->title();?></a>
+      <div id="portal-globalnav">
+      <?php
+        echo $site->publicNav()->menu()->renderMenu(null, [
+            'maxDepth' => $this->themeSetting('nav_depth') - 1
+        ]);
+      ?>
+              <li>
+          <a href="<?php echo $translate('/en/help');?>">Helpdesk & Helpdocs</a>
+        </li>
+        <li>
+          <a href="<?php echo $translate('/en/home');?>"><?php echo $translate('For KU Leuven');?></a>
+        </li>
+        <li>
+          <a href="<?php echo $translate('/en/news');?>"><?php echo $translate('News');?></a>
+        </li>
+<li>
+  <ul class="list-group list-group-horizontal" style="background-color: transparent;">
+    <li class="list-group-item" style="border: none;background-color: transparent;"><a href="/pro/home">Nederlands</a></li>
+    <li class="list-group-item" style="padding:0.75rem 1.25rem;background-color: transparent;"><a href="/pro-en/home">English</a></li>
+  </ul>
+</li>
+      </div>
+    </nav>
+
+    <form
+      class="form-search"
+      role="search"
+      action="<?php echo $site->url(); ?>/index/search"
+      method="get"
+      name="search-form"
+    >
+      <input type="text" class="form-control" placeholder="Search site tags" name="q" />
+      <button type="submit" class="btn btn-tertiary">
+        <i class="material-icons">search</i>
+      </button>
+    </form>
+    </aside>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- <script src="../js/all.min.js"></script> -->
+  
+  </body>
+
+  
+  <script>
+  $(document).ready(function() {
+    // Check for click events on the navbar burger icon
+    // $(".navbar-burger").click(function() {
+    //     // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    //     //$(".navbar-burger").toggleClass("is-active");
+    //     $(".burger-menu").toggleClass("is-active");
+    // });
+
+
+    $("#openSearch").click(function() {
+    $("#searchField").removeClass("hidden");
+    $("#openSearch").removeClass("nav-link");
+    $("#openSearch").addClass("hidden");
+    });
+
+    $(".search-menu-close").click(function() {
+       $(".search-menu").removeClass("is-active");
+    });
+    // $(".burger-menu-close").click(function() {
+    //    $(".burger-menu").removeClass("is-active");
+    // });
+    $("#burgernav").click(function() {
+      $("#flyout-local-menu").addClass("in");
+    });
+    $("#close-x").click(function() {
+      $("#flyout-local-menu").removeClass("in");
+    });
+
+    $(".wrapper .container:first").addClass("first");
+    $('.single-item').slick({
+      dots: true,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      fade: true,
+      cssEase: 'linear',
+      arrows: false
+    });
+
+
+    //$(".navigation li:nth-last-child(3) a").attr('target', '_blank');
+  });
+  </script>
+
+
+<!-- Latest compiled and minified JS -->
+
+
+</html>

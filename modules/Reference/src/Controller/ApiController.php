@@ -46,8 +46,12 @@ class ApiController extends \Omeka\Controller\ApiController
         // Field may be an array.
         // Empty string field means meta results.
         $field = $query['metadata'] ?? [];
-        $fields = is_array($field) ? $field : [$field];
-        $fields = array_unique($fields);
+        if (is_array($field)) {
+            $fields = $field;
+        } else {
+            $fields = array_unique(array_filter(array_map('trim', explode(',', $field))));
+            $fields = array_combine($fields, $fields);
+        }
 
         unset($query['metadata']);
 
@@ -65,10 +69,12 @@ class ApiController extends \Omeka\Controller\ApiController
             $options = $options['option'];
         }
 
-        unset($query['query']);
-        unset($query['option']);
-        unset($options['query']);
-        unset($options['option']);
+        unset(
+            $query['query'],
+            $query['option'],
+            $options['query'],
+            $options['option']
+        );
 
         // Text is full text, but full text doesn't work via api.
         if (array_key_exists('text', $query) && strlen($query['text'])) {
@@ -79,13 +85,15 @@ class ApiController extends \Omeka\Controller\ApiController
                 'text' => $query['text'],
             ];
         }
-        unset($query['text']);
-        unset($query['per_page']);
-        unset($query['page']);
-        unset($query['sort_by']);
-        unset($query['sort_order']);
-        unset($query['offset']);
-        unset($query['limit']);
+        unset(
+            $query['text'],
+            $query['per_page'],
+            $query['page'],
+            $query['sort_by'],
+            $query['sort_order'],
+            $query['offset'],
+            $query['limit']
+        );
 
         $result = $this->references($fields, $query, $options)->list();
         return new ApiJsonModel($result, $this->getViewOptions());
@@ -162,10 +170,9 @@ class ApiController extends \Omeka\Controller\ApiController
         if (empty($query['site_id']) && !empty($query['site_slug'])) {
             $siteSlug = $query['site_slug'];
             if ($siteSlug) {
-                $api = $this->api();
-                $siteId = $api->searchOne('sites', ['slug' => $siteSlug], ['initialize' => false, 'returnScalar' => 'id'])->getContent();
-                if ($siteId) {
-                    $query['site_id'] = $siteId;
+                try {
+                    $query['site_id'] = $this->api->read('sites', ['slug' => $siteSlug], [], ['initialize' => false, 'finalize' => false])->getContent()->getId();
+                } catch (\Exception $e) {
                 }
             }
         }

@@ -37,8 +37,8 @@ RUN usermod -u 1000 www-data \
 && wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.0/omeka-s-3.2.0.zip" -O /var/www/omeka-s.zip \
 && unzip -q /var/www/omeka-s.zip -d /var/www/ \
 &&  rm /var/www/omeka-s.zip \
-&&  rm -rf /var/www/html/libis/ \
-&&  mv /var/www/omeka-s /var/www/html/libis/ \
+&&  rm -rf /var/www/html/ \
+&&  mv /var/www/omeka-s /var/www/html/ \
 &&  chown -R www-data:www-data /var/www/html/
 
 ADD php.ini-development /usr/local/etc/php

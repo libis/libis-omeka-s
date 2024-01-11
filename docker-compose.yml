@@ -5,12 +5,12 @@ services:
   omeka-s:
     build: ./
     ports:
-      - "9015:80"
+      - "9014:80"
     volumes:
-      - ./modules/:/var/www/html/libis/modules/
-      - ./themes/:/var/www/html/libis/themes/
-      - ./files/:/var/www/html/libis/files/
-      - ./config/:/var/www/html/libis/config/
-      - ./htaccess:/var/www/html/libis/.htaccess
-      - ./imagemagick-policy.xml:/var/www/html/libis/imagemagick-policy.xml
+      - ./modules/:/var/www/html/modules/
+      - ./themes/:/var/www/html/themes/
+      - ./files/:/var/www/html/files/
+      - ./config/:/var/www/html/config/
+      - ./htaccess:/var/www/html/.htaccess
+      - ./imagemagick-policy.xml:/var/www/html/imagemagick-policy.xml
     restart: "no"

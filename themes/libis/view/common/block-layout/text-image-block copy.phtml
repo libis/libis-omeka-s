@@ -1,0 +1,257 @@
+<?php if(($block->dataValue('ratio'))):
+$ratio = $block->dataValue('ratio');
+else:
+  $ratio = 16/9;
+endif;
+$media = $attachments[0]->media();
+$oUrl = $media->originalUrl();
+?>
+<style>
+.openimage {
+  cursor: zoom-in;
+}
+/* Responsive image gallery rules begin*/
+
+.image-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.image-gallery > li {
+  flex: 1 1 auto; /* or flex: auto; */
+  height: <?php echo $height;?>px;
+  cursor: pointer;
+  position: relative;
+}
+
+.image-gallery::after {
+  content: "";
+  flex-grow: 999;
+}
+
+.image-gallery li img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(57, 57, 57, 0.502);
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  transition: all 0.2s 0.1s ease-in-out;
+  color: #fff;
+  border-radius: 5px;
+  /* center overlay content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* hover */
+.image-gallery li:hover .overlay {
+  transform: scale(1);
+}
+ul {
+  list-style: none;
+}
+</style>
+<script>
+  function OpenImage(url) {
+  window.open(url,'_blank');
+  }
+</script>
+
+<!-- <section class="section">
+  <div class="container">
+  <ul class="image-gallery justify-content-start">
+        <li class="col-md col-xs-12" style="flex: 1 999 100%;">
+          <div class="card" style="min-height: <?php echo $height;?>px;">
+          <div class="card-body"><?php echo $block->dataValue('text');?></div>
+          </div>
+          <!-- <div class="overlay"><span>Image title</span></div> -->
+        <!-- </li>
+        <li class="col" style="flex: 0 0 auto;">
+          <img src="<?php echo $oUrl;?>" alt="" />
+          <!-- <div class="overlay"><span>Image title</span></div> -->
+        <!-- </li>
+      </ul>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container">
+    <div style="display: flex; flex-wrap: nowrap; width: 100%; gap: 10px;">
+      <div class="card-body" style="border: 1px solid rgba(0,0,0,.125); border-radius: 0.25rem; flex-basis: fit-content;">
+      <?php echo $block->dataValue('text');?>
+      </div>
+      <div style="aspect-ratio: <?php echo $ratio;?>; flex: 1 1 fit-content;">
+        <img src="<?php echo $oUrl;?>" style="display: block; max-width: 100%; height: 100%; object-fit: cover;">
+      </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+    <div class="container">
+      <div class="row">
+          <?php if(!$block->dataValue('reverse')):?>
+            <?php if($block->dataValue('small')):?>
+              <div class="col-md-9">
+              <div class="card"> 
+                <div class="card-body">
+                  <?php if($block->dataValue('title')):?>
+                    <h2 class="card-title"><?php echo $block->dataValue('title');?></h2>
+                  <?php endif;?>  
+                  <?php echo $block->dataValue('text');?>
+                </div>
+                <?php if($block->dataValue('link')):?>
+                  <a class="more" href="<?php echo $block->dataValue('link');?>"><?php echo $block->dataValue('label');?></a>
+                <?php endif;?>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <?php if($attachments):
+                $media = $attachments[0]->media();
+                if($media):
+                  $url = $media->thumbnailUrl('square');
+                  $url = str_replace('http:', '', $url);
+                  $oUrl = $media->originalUrl();
+                  if($block->dataValue('itemurl')):
+                    $itemUrl = $media->item()->url();
+                    $itemUrl = str_replace('http:', '', $itemUrl);
+                    ?>
+                    <div onclick="OpenImage('<?php echo $oUrl;?>')" class="card openimage" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                  <?php else:?>
+                    <div class="card" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                    <!-- <img src="<?php echo $url;?>"> -->
+                  <?php endif;?>
+                <?php endif;?>
+              <figcaption><?php echo $attachments[0]->caption();?></figcaption>
+              <?php endif;?>
+              </div>
+            </div>
+
+            <?php else: //if not small?>
+            <div class="col-md-7">
+              <div class="card"> 
+                <div class="card-body">
+                  <?php if($block->dataValue('title')):?>
+                    <h2 class="card-title"><?php echo $block->dataValue('title');?></h2>
+                  <?php endif;?>  
+                  <?php echo $block->dataValue('text');?>
+                </div>
+                <?php if($block->dataValue('link')):?>
+                  <a class="more" href="<?php echo $block->dataValue('link');?>"><?php echo $block->dataValue('label');?></a>
+                <?php endif;?>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <?php if($attachments):
+                $media = $attachments[0]->media();
+                if($media):
+                  $url = $media->thumbnailUrl('large');
+                  $url = str_replace('http:', '', $url);
+                  $oUrl = $media->originalUrl();
+                  if($block->dataValue('itemurl')):
+                    $itemUrl = $media->item()->url();
+                    $itemUrl = str_replace('http:', '', $itemUrl);
+                    ?>
+                    <div onclick="OpenImage('<?php echo $oUrl;?>')" class="card openimage" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                  <?php else:?>
+                    <div class="card" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                    <!-- <img src="<?php echo $url;?>"> -->
+                  <?php endif;?>
+                <?php endif;?>
+              <figcaption><?php echo $attachments[0]->caption();?></figcaption>
+              <?php endif;?>
+              </div>
+            </div>
+            <?php endif; //end of if small?>
+
+          <?php else: //if reverse?> 
+            <?php if($block->dataValue('small')):?>
+            <div class="col-md-3">
+              <?php if($attachments):
+                $media = $attachments[0]->media();
+                if($media):
+                  $url = $media->thumbnailUrl('square');
+                  $url = str_replace('http:', '', $url);
+                  $oUrl = $media->originalUrl();
+                  if($block->dataValue('itemurl')):
+                    $itemUrl = $media->item()->url();
+                    $itemUrl = str_replace('http:', '', $itemUrl);
+                    ?>
+                    <div onclick="OpenImage('<?php echo $oUrl;?>')" class="card openimage" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                  <?php else:?>
+                    <div class="card" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                    <!-- <img src="<?php echo $url;?>"> -->
+                  <?php endif;?>
+                <?php endif;?>
+              <figcaption><?php echo $attachments[0]->caption();?></figcaption>
+              <?php endif;?>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="card"> 
+                <div class="card-body">
+                  <?php if($block->dataValue('title')):?>
+                    <h2 class="card-title"><?php echo $block->dataValue('title');?></h2>
+                  <?php endif;?>  
+                  <?php echo $block->dataValue('text');?>
+                </div>
+                <?php if($block->dataValue('link')):?>
+                  <a class="more" href="<?php echo $block->dataValue('link');?>"><?php echo $block->dataValue('label');?></a>
+                <?php endif;?>
+              </div>
+            </div>
+
+            <?php else:?>
+            <div class="col-md-5">
+              <?php if($attachments):
+                $media = $attachments[0]->media();
+                if($media):
+                  $url = $media->thumbnailUrl('large');
+                  $url = str_replace('http:', '', $url);
+                  $oUrl = $media->originalUrl();
+                  if($block->dataValue('itemurl')):
+                    $itemUrl = $media->item()->url();
+                    $itemUrl = str_replace('http:', '', $itemUrl);
+                    ?>
+                    <div onclick="OpenImage('<?php echo $oUrl;?>')" class="card openimage" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                  <?php else:?>
+                    <div class="card" style="background:url('<?php echo $url; ?>') no-repeat center center;background-size: 100% 100%;min-height: 240px">
+                    <!-- <img src="<?php echo $url;?>"> -->
+                  <?php endif;?>
+                <?php endif;?>
+              <figcaption><?php echo $attachments[0]->caption();?></figcaption>
+              <?php endif;?>
+                  </div>
+            </div>
+            <div class="col-md-7">
+            <div class="card">
+              <div class="card-body">
+                <?php if($block->dataValue('title')):?>
+                  <h2><?php echo $block->dataValue('title');?></h2>
+                <?php endif;?>
+                <?php echo $block->dataValue('text');?>
+             
+                <?php if($block->dataValue('link')):?>
+                    <a class="more" href="<?php echo $block->dataValue('link');?>"><?php echo $block->dataValue('label');?></a>
+                <?php endif;?>
+            </div>
+          <?php endif;?>
+          </div>
+        </div>
+        <?php endif; //end if not reverse?>
+      </div>
+  </div>
+</section>

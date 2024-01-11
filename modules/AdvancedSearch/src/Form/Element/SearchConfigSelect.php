@@ -6,12 +6,14 @@ use Laminas\Form\Element\Select;
 
 class SearchConfigSelect extends Select
 {
+    use TraitOptionalElement;
+
     /**
      * @var \Omeka\Api\Manager
      */
     protected $apiManager;
 
-    public function getValueOptions()
+    public function getValueOptions(): array
     {
         $response = $this->apiManager->search('search_configs');
         $searchConfigs = $response->getContent();

@@ -1,0 +1,58 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+?>
+<style>
+.figscarrousel {
+  background-color: rgb(0,0,0,0.4);
+  color: #fff;
+  padding: 3px 10px;
+  text-align: center;
+  position: relative;
+  bottom: 2rem;
+  width: inherit;
+  font-size: 1rem;
+  text-decoration: none;
+}
+.slick-dots {
+    bottom: -10px;
+}
+.openup {
+    cursor: pointer;
+}
+</style>
+<section class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"><?= $heading ?></h2>
+                        <p><?= $text ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="flex-row-reverse single-item">
+                <?php $i = 1;?>
+                <?php foreach($attachments as $attachment): ?>
+                <?php
+                    $media = $attachment->media();
+                    if($media){
+                        $url = $media->originalUrl();
+                        $url = str_replace('http:', '', $url); 
+                    }                         
+                ?>
+                    <figure class="figure" style="width:480px; height: 300px;">
+                        <img class="openup" onclick="OpenImage('<?php echo $translate('/en/');?><?php echo $links[$i];?>')" src="<?php echo $url; ?>" style="aspect-ratio: 480/300; width:480px; height: 300px; object-fit: cover;">
+                        <?php if($attachment->caption()):?>
+                        <figcaption class="figscarrousel"><?php echo $attachment->caption();?></figcaption>
+                        <?php endif;?>
+                    </figure>
+                    <?php $i++;?>
+                <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

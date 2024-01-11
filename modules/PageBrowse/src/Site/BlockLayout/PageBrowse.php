@@ -26,6 +26,7 @@ class PageBrowse extends AbstractBlockLayout
             'text' => '',
             'link' => '',
             'link-text' => 'Browse all', // @translate
+            'filter' => '', //tags to filter with
         ];
 
         $data = $block ? $block->data() + $defaults : $defaults;
@@ -45,6 +46,14 @@ class PageBrowse extends AbstractBlockLayout
             'options' => [
                 'label' => 'Description', // @translate
                 'info' => 'Description that appears above the items'
+            ],
+        ]);
+        $form->add([
+            'name' => 'o:block[__blockIndex__][o:data][filter]',
+            'type' => Element\Text::class,
+            'options' => [
+                'label' => 'Filter tags', // @translate
+                'info' => 'List the tags you want to appear on top of the page. Please seperate tags with commas. Ex. 2023,research,heritage'
             ],
         ]);
         $form->add([
@@ -81,6 +90,7 @@ class PageBrowse extends AbstractBlockLayout
             'o:block[__blockIndex__][o:data][heading]' => $data['heading'],
             'o:block[__blockIndex__][o:data][tag]' => $data['tag'],
             'o:block[__blockIndex__][o:data][link]' => $data['link'],
+            'o:block[__blockIndex__][o:data][filter]' => $data['filter'],
         ]);
 
         return $view->formCollection($form);

@@ -1,0 +1,176 @@
+<?php
+$translate = $this->plugin('translate');
+
+$orderPages = array();
+foreach($pages as $page):
+  $orderPages[] = $page->dataValue('order');
+endforeach;
+array_multisort($orderPages,$pages);
+
+$serverurl = $this->serverUrl(true);
+if (strpos($serverurl, 'page/news') !== false) {
+  $news = true;
+}else{
+$news = false;
+}
+?>
+<style>
+  .hover-img:hover{
+    border-color: darkblue;
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+<section>
+  <div class="container">
+    <?php if ($this->heading): ?>
+      <h2><?php echo $block->dataValue('heading');?></h2>
+    <?php endif; ?>
+
+    <?php if($block->dataValue('text')):?>
+      <p>
+        <?php echo $block->dataValue('text');?>
+      </p>
+    <?php endif; ?>
+      <input type="button" class="btn-check" id="btn-check-outlined" name="tag" onclick="ResetFilter()" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btn-check-outlined">Show all</label>
+<?php if($block->dataValue('filter')):
+  $filters = explode(",", $block->dataValue('filter'));
+  natcasesort($filters);
+  $years = array();
+  ?>
+  <label class="btn" style="cursor: default;"><h5><strong><?php echo $translate('Popular');?>:  </strong></h5></label>
+  <?php foreach ($filters as $filter):?>
+    <?php if(is_numeric($filter)){
+      $years[] = $filter;
+    } else { ?>   
+<input type="checkbox" class="btn-check tag-button" id="<?php echo $filter;?>" name="tag" value="<?php echo $filter;?>" onclick="FilterTags()" autocomplete="off">
+<label class="btn btn-outline-primary" for="<?php echo $filter;?>"><?php echo $filter;?></label>
+<?php };?>
+<?php endforeach;
+if($years):
+natsort($years);?>
+<?php foreach ($years as $year):?>
+<input type="checkbox" class="btn-check tag-button" id="<?php echo $year;?>" name="tag" value="<?php echo $year;?>" onclick="FilterTags()" autocomplete="off">
+<label class="btn btn-outline-primary" for="<?php echo $year;?>"><?php echo $year;?></label>
+<?php endforeach; endif;?>
+<?php endif;?>
+    <div class="row">
+      <?php
+      foreach ($pages as $page):
+        $heading = $page->page()->title();
+        $body = $page->dataValue('summary');      
+        $asset = $page->dataValue('cover');
+        $tagsArray = $page->dataValue('tags');
+        $tags = implode(", ", $tagsArray);
+
+        if (!$asset) {
+            $mediaurl = "";
+        }else{
+          try {
+              $media = $this->api()->read('assets', ['id' => $asset])->getContent();
+              $mediaurl = $media->assetUrl('large');
+          } catch (NotFoundException $e) {
+              $mediaurl = "";
+          }
+        }
+
+        $url = $page->page()->url();
+        ?>
+      <div class="col-xs-12 col-md-4 news-item<?php if($tags):?><?php foreach($tagsArray as $tag):?><?php echo ' ' . $tag; ?><?php endforeach; ?><?php endif;?>">
+        
+          <div class="kul-card-image card hover-img">
+            <?php if($mediaurl):?>
+              <a href="<?php echo $url;?>"><div class="card-img-top" style="background-image: url(<?php echo  $mediaurl;?>)">&nbsp;</div></a>
+            <?php endif;?>
+            <div class="card-body<?php if($news):?> text-center<?php endif;?>">
+            
+            <h2><a href="<?php echo $url;?>"><?php echo $heading;?></a></h2>
+          
+            <?php if ($body): ?>
+              <?php
+                if(strlen($body) > 200):
+                  $body = substr($body, 0, 200);
+                  $body = substr($body, 0, strrpos($body, ' ')).' ...';
+                endif;
+              ?>
+              <p>
+                <?php echo $body; ?>
+              </p>
+            <?php endif; ?>
+            <div>
+            <?php if($page->dataValue('credits')):?>
+              <div style="text-align:left; display: inline-block;">
+              <cite>                 
+                By <?php echo $page->dataValue('credits'); ?>
+            </cite>  
+            </div>
+            <?php endif;?>
+            <?php if($tags):
+              $yeartags = array();
+              natcasesort($tagsArray);
+            ?>
+            <div class="float-end" style="text-align:right; display: inline-block;">
+              <cite>                 
+                  <?php foreach($tagsArray as $tag):
+                    if(is_numeric($tag)): 
+                      $yeartags[] = $tag;
+                    else: ?>
+                  <a style="text-decoration: none;" class="badge bg-primary" href="/s/libis/index/search?fulltext_search=<?php echo $tag; ?>"><?php echo $tag; ?></a>
+                  <?php endif;?>    
+                  <?php endforeach; ?>
+                  <?php if($yeartags):
+                  natcasesort($yeartags);
+                  foreach($yeartags as $yeartag):?>
+                    <a style="text-decoration: none;" class="badge bg-primary" href="/s/libis/index/search?fulltext_search=<?php echo $yeartag; ?>"><?php echo $yeartag; ?></a>
+                  <?php endforeach; endif;?>    
+            </cite>  
+            </div>
+            <?php endif;?>
+            </div>  
+            </div>
+
+          </div>
+        </div>
+
+     
+      <?php endforeach; ?>
+    </div>
+    <?php if($block->dataValue('link')):?>
+      <div style="text-align:right">
+        
+        <p>
+              <strong>
+                <a class="more" href="<<?php echo $block->dataValue('link');?>" class="button is-white">
+                  Lees meer
+                </a>
+              </strong>
+            </p>
+      </div>  
+    <?php endif;?>                
+  </div>
+</section>
+
+<script>
+function FilterTags() {
+  let checkedtags =document.querySelectorAll('input[name="tag"]:checked');
+  let tags = [];
+  checkedtags.forEach((checkedtag) => {
+    tags.push(checkedtag.value);
+  });
+  console.log(tags);
+  $(".news-item").addClass("hidden");
+  tags.forEach((tag) => {
+    $("." + tag).removeClass("hidden");
+  });
+  if(tags.length == 0) {
+    $(".news-item").removeClass("hidden");
+  }
+}
+function ResetFilter(){
+  $(".news-item").removeClass("hidden");
+  $(".tag-button").prop('checked', false);
+}
+
+</script>

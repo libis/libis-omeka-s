@@ -18,6 +18,24 @@ use Zend\Form\Element\Textarea;
 ?>
 <?php echo $this->formRow($textarea);?>
 
+<?php if(isset($block)):
+  $lines = $block->dataValue('lines');
+else:
+  $lines = 0;
+endif;?>
+<div class="field">
+  <div class="field-meta">
+      <label>No box border</label>
+      <a href="#" class="expand" aria-label="Expand" title="Expand"></a>
+      <div class="collapsible">
+        <div class="field-description">Remove box border when only one text area is filled in.</div>
+      </div>
+  </div>
+  <div class="inputs">
+      <input type="checkbox" class="" value="lines" <?php echo ($lines == 'lines' ? 'checked' : '') ?> name="o:block[__blockIndex__][o:data][lines]">
+  </div>
+</div>
+
 <h4>Text (optional)</h4>
 This creates an extra column<br>
 <?php

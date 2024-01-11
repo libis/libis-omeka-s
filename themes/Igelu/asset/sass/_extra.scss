@@ -1,0 +1,30 @@
+#local-header li:first::before{
+    content: "home";
+    vertical-align: middle;
+    font-family: Material Icons;
+    text-transform: lowercase;
+    -moz-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+    display: inline-block;
+    margin-right: 3px;
+}
+
+#local-header ul li ul{
+    display: none;
+}
+
+.nav-main{
+    display: block !important;
+    .navigation li ul {
+        display:none;
+    } 
+}
+
+.page .first > h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0rem;
+}

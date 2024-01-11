@@ -1,6 +1,6 @@
 {
-    "name": "daniel-km/omeka-s-module-search",
-    "description": "Add improved search capabilities to Omeka S: auto-suggest, filters, facets, etc.",
+    "name": "daniel-km/omeka-s-module-advanced-search",
+    "description": "Module for Omeka S to add improved search capabilities: auto-suggest, filters, facets, etc.",
     "type": "library",
     "license": "CECILL-2.1",
     "authors": [
@@ -40,7 +40,13 @@
     ],
     "require": {
         "oomphinc/composer-installers-extender": "^2.0",
-        "devbridge/jquery-autocomplete": "1.4.11"
+        "devbridge/jquery-autocomplete": "1.4.11",
+        "laminas/laminas-feed": "^2.18"
+    },
+    "replace": {
+        "laminas/laminas-escaper": "*",
+        "laminas/laminas-servicemanager": "*",
+        "laminas/laminas-stdlib": "*"
     },
     "require-dev": {
         "biblibre/omeka-s-test-helper": "dev-master"
@@ -67,5 +73,11 @@
             "# Fix https://github.com/devbridge/jQuery-Autocomplete/pull/811",
             "@php -r '$f = __DIR__ . \"/asset/vendor/jquery-autocomplete/jquery.autocomplete.min.js\"; file_put_contents($f, str_replace(\",200)\", \",350)\", file_get_contents($f)));'"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true
+        }
     }
 }

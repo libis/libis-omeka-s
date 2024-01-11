@@ -2,7 +2,7 @@
 
 /*
  * Copyright BibLibre, 2016
- * Copyright Daniel Berthereau, 2018-2021
+ * Copyright Daniel Berthereau, 2018-2023
  *
  * This software is governed by the CeCILL license under French law and abiding
  * by the rules of distribution of free software.  You can use, modify and/ or
@@ -41,7 +41,7 @@ abstract class AbstractIndexer implements IndexerInterface
     /**
      * @var ServiceLocatorInterface
      */
-    protected $serviceLocator;
+    protected $services;
 
     /**
      * @var SearchEngineRepresentation
@@ -50,13 +50,13 @@ abstract class AbstractIndexer implements IndexerInterface
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator): IndexerInterface
     {
-        $this->serviceLocator = $serviceLocator;
+        $this->services = $serviceLocator;
         return $this;
     }
 
     protected function getServiceLocator(): ServiceLocatorInterface
     {
-        return $this->serviceLocator;
+        return $this->services;
     }
 
     public function setSearchEngine(SearchEngineRepresentation $engine): IndexerInterface

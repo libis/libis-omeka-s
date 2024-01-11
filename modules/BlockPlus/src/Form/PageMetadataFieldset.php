@@ -35,6 +35,17 @@ class PageMetadataFieldset extends Fieldset
                 ],
             ])
             ->add([
+                'name' => 'o:block[__blockIndex__][o:data][order]',
+                'type' => Element\Text::class,
+                'options' => [
+                    'label' => 'Page order', // @translate
+                    'default' => '999',
+                ],
+                'attributes' => [
+                    'id' => 'page-metadata-order',
+                ],
+            ])
+            ->add([
                 'name' => 'o:block[__blockIndex__][o:data][credits]',
                 'type' => Element\Text::class,
                 'options' => [

@@ -1,0 +1,25 @@
+<?php if(($block->dataValue('ratio'))):
+$ratio = $block->dataValue('ratio');
+else:
+  $ratio = 16/9;
+endif;
+$media = $attachments[0]->media();
+$oUrl = $media->originalUrl();
+?>
+
+<section class="section">
+  <div class="container">
+    <div class="flex-image-figure" style="display: flex; flex-wrap: nowrap; width: 100%; gap: 10px;<?php if(!$block->dataValue('reverse')):?> flex-direction: row-reverse;<?php endif;?>">
+      <div class="card-body" style="border: 1px solid rgba(0,0,0,.125); border-radius: 0.25rem; flex-basis: fit-content;">
+      <?php if($block->dataValue('title')):?>
+        <h2 class="card-title"><?php echo $block->dataValue('title');?></h2>
+      <?php endif;?> 
+      <?php echo $block->dataValue('text');?>
+      </div>
+      <figure onclick="OpenImage('<?php echo $oUrl;?>')" class="openimage" style="aspect-ratio: <?php echo $ratio;?>; flex: 1 3 fit-content;">
+        <img src="<?php echo $oUrl;?>" style="display: block; max-width: 100%; height: 100%; object-fit: cover;border-radius: 1%;">
+        <figcaption class="figs"><?php echo $attachments[0]->caption();?></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

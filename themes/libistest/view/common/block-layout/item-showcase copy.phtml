@@ -1,0 +1,68 @@
+<!-- <div class="item-showcase">
+<?php foreach ($attachments as $attachment): ?>
+    <div class="item resource">
+    <?php
+    $item = $attachment->item();
+    if ($item):
+    ?>
+        <?php
+        $media = $attachment->media() ?: $item->primaryMedia();
+        if ($media):
+            echo $item->linkRaw($this->thumbnail($media, $this->thumbnailType));
+        endif;
+        ?>
+        <?php $showTitleOption = $this->showTitleOption; ?>
+        <?php if ($showTitleOption == 'item_title'): ?>
+        <h3><?php echo $item->link($item->displayTitle()); ?></h3>
+        <?php elseif ($showTitleOption == 'file_name'): ?>
+        <h3><?php echo $media->displayTitle(); ?></h3>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <?php
+    $caption = $attachment->caption();
+    if ($caption):
+    ?>
+        <div class="caption"><?php echo $caption; ?></div>
+    <?php endif; ?>
+    </div>
+<?php endforeach; ?>
+</div> -->
+
+
+<section class="section">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group" id="myList" role="tablist">
+            <?php $i = 1; ?>
+            <?php foreach ($attachments as $attachment): ?>
+                <?php
+                $media = $attachment->media();
+                $titleFile = $media->displayTitle();
+                ?>
+                <a class="list-group-item list-group-item-action <?php if ($i == 1):?>active<?php endif;?>" data-bs-toggle="list" href="#tab<?php echo $i;?>" role="tab"><?php echo $titleFile; ?></a>
+                <?php $i++;?>
+            <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tab-content">
+            <?php $i = 1; ?>
+            <?php foreach ($attachments as $attachment): ?>
+                <?php
+                $media = $attachment->media();
+                $oUrl = $media->originalUrl(); 
+                $originalUrl = str_replace('http://', 'https://', $oUrl);
+                $oUrl = $originalUrl;
+                ?>
+                <div class="tab-pane <?php if ($i == 1):?>active<?php endif;?>" id="tab<?php echo $i;?>" role="tabpanel">
+                    <div class="justify-content-center d-flex">
+                        <iframe allowfullscreen="true" src="<?php echo $oUrl; ?>" style="width: 800px; height: 800px;"></iframe>
+                    </div>
+                </div>
+                <?php $i++;?>
+            <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</section>

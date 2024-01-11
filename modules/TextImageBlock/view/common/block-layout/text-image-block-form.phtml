@@ -20,7 +20,7 @@ echo $this->blockAttachmentsForm($block);
 ?>
 <?php echo $this->formRow($textarea);?>
 
-<div class="field">
+<!-- <div class="field">
   <div class="field-meta">
       <label>Link</label>
   </div>
@@ -35,7 +35,7 @@ echo $this->blockAttachmentsForm($block);
   <div class="inputs">
       <input type="text" class="" value="<?php echo (!isset($block) ? '' : $block->dataValue('label')) ?>" name="o:block[__blockIndex__][o:data][label]">
   </div>
-</div>
+</div> -->
 <?php if(isset($block)):
   $reverse = $block->dataValue('reverse');
 else:
@@ -46,44 +46,68 @@ endif;?>
       <label>Reverse</label>
       <a href="#" class="expand" aria-label="Expand" title="Expand"></a>
       <div class="collapsible">
-        <div class="field-description">Move text to the left and image to the right (with green overlay)</div>
+        <div class="field-description">Move text to the right and image to the left</div>
       </div>
   </div>
   <div class="inputs">
       <input type="checkbox" class="" value="reverse" <?php echo ($reverse == 'reverse' ? 'checked' : '') ?> name="o:block[__blockIndex__][o:data][reverse]">
   </div>
 </div>
-<?php if(isset($block)):
+<!-- <?php if(isset($block)):
   $itemurl = $block->dataValue('itemurl');
 else:
   $itemurl = '';
 endif;?>
 <div class="field">
   <div class="field-meta">
-      <label>Link image to item?</label>
+      <label>Add zoom?</label>
       <a href="#" class="expand" aria-label="Expand" title="Expand"></a>
       <div class="collapsible">
-        <div class="field-description">Add a link to the item related to the image/attachment</div>
+        <div class="field-description">Add a link to the original image that opens in a new tab/window</div>
       </div>
   </div>
   <div class="inputs">
       <input type="checkbox" class="" value="itemurl" <?php echo ($itemurl == 'itemurl' ? 'checked' : '') ?> name="o:block[__blockIndex__][o:data][itemurl]">
   </div>
-</div>
+</div> -->
 <?php if(isset($block)):
-  $highlight = $block->dataValue('highlight');
+  $small = $block->dataValue('small');
 else:
-  $highlight = 0;
+  $small = 0;
 endif;?>
 <div class="field">
   <div class="field-meta">
-      <label>Highlight text</label>
+      <label>Contain image</label>
       <a href="#" class="expand" aria-label="Expand" title="Expand"></a>
       <div class="collapsible">
-        <div class="field-description">Make the text field more eye catching</div>
+        <div class="field-description">Image is set to be contained. Useful for screenshots to be shown in their entirety.</div>
       </div>
   </div>
   <div class="inputs">
-      <input type="checkbox" class="" value="highlight" <?php echo ($highlight == 'highlight' ? 'checked' : '') ?> name="o:block[__blockIndex__][o:data][highlight]">
+      <input type="checkbox" class="" value="small" <?php echo ($small == 'small' ? 'checked' : '') ?> name="o:block[__blockIndex__][o:data][small]">
+  </div>
+</div>
+<div class="field">
+  <div class="field-meta">
+      <label>Image ratio</label>
+      <a href="#" class="expand" aria-label="Expand" title="Expand"></a>
+      <div class="collapsible">
+        <div class="field-description">Set the ratio of the image (ex. 16 / 9). Exact dimensions of the image can be used too (width / height). Default is 16/9.</div>
+      </div>
+  </div>
+  <div class="inputs">
+      <input type="text" class="" value="<?php echo (!isset($block) ? '16/9' : $block->dataValue('ratio')) ?>" name="o:block[__blockIndex__][o:data][ratio]">
+  </div>
+</div>
+<div class="field">
+  <div class="field-meta">
+      <label>Image size</label>
+      <a href="#" class="expand" aria-label="Expand" title="Expand"></a>
+      <div class="collapsible">
+        <div class="field-description">Set relative size of image to text block. Either 1, 2 or 3 (or more). The bigger the number, the more the image will shrink. Default is 1.</div>
+      </div>
+  </div>
+  <div class="inputs">
+      <input type="text" class="" value="<?php echo (!isset($block) ? '1' : $block->dataValue('shrink')) ?>" name="o:block[__blockIndex__][o:data][shrink]">
   </div>
 </div>

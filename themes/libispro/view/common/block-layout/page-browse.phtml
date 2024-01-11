@@ -1,0 +1,101 @@
+<?php
+$translate = $this->plugin('translate');
+?>
+<style>
+  .hover-img:hover{
+    border-color: darkblue;
+  }
+</style>
+<section class="section">
+  <div class="container">
+    <?php if ($this->heading): ?>
+      <h2><?php echo $block->dataValue('heading');?></h2>
+    <?php endif; ?>
+
+    <?php if($block->dataValue('text')):?>
+      <p>
+        <?php echo $block->dataValue('text');?>
+      </p>
+    <?php endif; ?>
+
+    <div class="row">
+      <?php
+      foreach ($pages as $page):
+        $heading = $page->page()->title();
+        $body = $page->dataValue('summary');      
+        $asset = $page->dataValue('cover');
+        $tags = $page->dataValue('tags');
+        $tags = implode(", ", $tags);
+
+        if (!$asset) {
+            $mediaurl = "";
+        }else{
+          try {
+              $media = $this->api()->read('assets', ['id' => $asset])->getContent();
+              $mediaurl = $media->assetUrl('large');
+          } catch (NotFoundException $e) {
+              $mediaurl = "";
+          }
+        }
+
+        $url = $page->page()->url();
+        ?>
+      <div class="col-xs-12 col-md-4">
+        
+          <div class="kul-card-image card hover-img">
+            <?php if($mediaurl):?>
+              <a href="<?php echo $url;?>"><div class="card-img-top" style="background-image: url(<?php echo  $mediaurl;?>)">&nbsp;</div></a>
+            <?php endif;?>
+            <div class="card-body">
+            
+            <h2><a href="<?php echo $url;?>"><?php echo $heading;?></a></h2>
+          
+            <?php if ($body): ?>
+              <?php
+                if(strlen($body) > 200):
+                  $body = substr($body, 0, 200);
+                  $body = substr($body, 0, strrpos($body, ' ')).' ...';
+                endif;
+              ?>
+              <p>
+                <?php echo $body; ?>
+              </p>
+            <?php endif; ?>
+            <div>
+            <?php if($page->dataValue('credits')):?>
+              <div style="text-align:left; display: inline-block;">
+              <cite>                 
+                By <?php echo $page->dataValue('credits'); ?>
+            </cite>  
+            </div>
+            <?php endif;?>
+            <?php if($tags):?>
+            <div class="float-end" style="text-align:right; display: inline-block;">
+              <cite>                 
+                Tags: <?php echo $tags; ?>
+            </cite>  
+            </div>
+            <?php endif;?>
+            </div>  
+            </div>
+
+          </div>
+        </div>
+
+     
+      <?php endforeach; ?>
+    </div>
+    <?php if($block->dataValue('link')):?>
+      <div style="text-align:right">
+        
+        <p>
+              <strong>
+                <a class="more" href="<<?php echo $block->dataValue('link');?>" class="button is-white">
+                  Lees meer
+                </a>
+              </strong>
+            </p>
+      </div>  
+    <?php endif;?>                
+  </div>
+</section>

@@ -1,0 +1,38 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+?>
+
+<section class="section wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"><?= $heading ?></h2>
+                        <p><?= $text ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="flex-row-reverse single-item">
+                <?php $i = 1;?>
+                <?php foreach($attachments as $attachment): ?>
+                <?php
+                    $media = $attachment->media();
+                    if($media){
+                        $url = $media->originalUrl();
+                        $url = str_replace('http:', '', $url); 
+                    }                         
+                ?>
+                    <figure class="figure">
+                        <img class="img-fluid" src="<?php echo $url; ?>" style="width: 480px; height: 300px; margin-right: 0%;">
+                        <div class="text-center" style="width: 480px; height: 60px; background-color: rgba(0, 0, 0, 0.4); color: white;"><a href="/s/libis/page/<?php echo $links[$i];?>"><?php echo $attachment->caption();?></a></div>
+                    </figure>
+                    <?php $i++;?>
+                <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

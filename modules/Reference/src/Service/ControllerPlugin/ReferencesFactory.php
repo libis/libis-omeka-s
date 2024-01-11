@@ -13,12 +13,21 @@ class ReferencesFactory implements FactoryInterface
         $plugins = $services->get('ControllerPluginManager');
         $api = $plugins->get('api');
 
+        /** @var \Omeka\Module\Manager $moduleManager */
+        $moduleManager = $services->get('Omeka\ModuleManager');
+        $module = $moduleManager->getModule('AdvancedSearch');
+        $hasAdvancedSearch = $module
+            && $module->getState() === \Omeka\Module\Manager::STATE_ACTIVE;
+
         return new References(
             $services->get('Omeka\EntityManager'),
             $services->get('Omeka\ApiAdapterManager'),
+            $services->get('Omeka\Acl'),
+            $services->get('Omeka\AuthenticationService')->getIdentity(),
             $api,
             $plugins->get('translate'),
-            $this->supportAnyValue($services)
+            $this->supportAnyValue($services),
+            $hasAdvancedSearch
         );
     }
 
@@ -32,7 +41,7 @@ class ReferencesFactory implements FactoryInterface
         // bypassed by Any_value().
         $sql = 'SELECT ANY_VALUE(id) FROM user LIMIT 1;';
         try {
-            $connection->executeQuery($sql)->fetchColumn();
+            $connection->executeQuery($sql)->fetchOne();
             return true;
         } catch (\Exception $e) {
             return false;

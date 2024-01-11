@@ -2,7 +2,7 @@
 
 /*
  * Copyright BibLibre, 2016
- * Copyright Daniel Berthereau, 2018-2021
+ * Copyright Daniel Berthereau, 2018-2023
  *
  * This software is governed by the CeCILL license under French law and abiding
  * by the rules of distribution of free software.  You can use, modify and/ or
@@ -61,7 +61,7 @@ class SearchPage implements LinkInterface
 
     public function getFormTemplate()
     {
-        return 'advanced-search/navigation-link-form/search-page';
+        return 'common/navigation-link-form/search-page';
     }
 
     public function toZend(array $data, SiteRepresentation $site)

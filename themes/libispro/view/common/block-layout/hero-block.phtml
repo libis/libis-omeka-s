@@ -1,0 +1,35 @@
+<?php
+  $url = '';
+  if($attachments):
+    $media = $attachments[0]->media();
+
+    $url = '';
+    if($media):
+      $url = $media->thumbnailUrl('large');
+      $url = str_replace('http:', '', $url);
+    endif;
+  endif;
+?>
+<style>
+.jumbotron2 .card-banner {
+  background-color: #ecf2f5 !important;
+}
+.jumbotron2 .card-body h1 {
+  color: dimgray;
+}
+</style>
+<div class="jumbotron2" style="background-color: azure !important;">
+  <div class="card card-banner card-50-50-right">
+    <div class="card-img-right" style="background-image: url(<?php echo $url;?>);">
+      <div class="banner-info" style="font-size:60%;"><?php echo $attachments[0]->caption();?></div>
+    </div>
+    <div class="card-body" style="padding: 30 90 90 90;">
+      <?php if($block->dataValue('sec_title')):?>
+        <h2><?php echo $block->dataValue('sec_title');?></h2>
+      <?php endif;?>
+      <h1><?php echo $block->dataValue('title');?></h1>
+
+      <p><?php echo $block->dataValue('text');?></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-05 00:00+0000\n"
+"PO-Revision-Date: 2023-12-11 13:30+0100\n"
+"Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+
+msgid "OR"
+msgstr "OF"
+
+msgid "or"
+msgstr "of"
+
+msgid "AND"
+msgstr "EN"
+
+msgid "and"
+msgstr "en"
+
+msgid "/en/"
+msgstr "/"
+
+msgid "For professionals"
+msgstr "Voor professionals"
+
+msgid "For KU Leuven"
+msgstr "Voor KU Leuven"
+
+msgid "News"
+msgstr "Nieuws"
+
+msgid "Collections & Data"
+msgstr "Collecties & Data"
+
+msgid "Research Infrastructure"
+msgstr "Onderzoeksinfrastructuur"
+
+msgid "Research infrastructure"
+msgstr "Onderzoeksinfrastructuur"
+
+msgid "Services & Tools"
+msgstr "Diensten & Producten"
+
+msgid "Expertise & Consultancy"
+msgstr "Expertise & Consultantie"
+
+msgid "About Us"
+msgstr "Over Ons"
+
+msgid "About us"
+msgstr "Over ons"
+
+msgid "Library"
+msgstr "Bibliotheek"
+
+msgid "Archive"
+msgstr "Archief"
+
+msgid "Heritage"
+msgstr "Erfgoed"
+
+msgid "Our mission"
+msgstr "Onze missie"
+
+msgid "Our history"
+msgstr "Onze geschiedenis"
+
+msgid "Contact Us"
+msgstr "Contacteer Ons"
+
+msgid "Our services"
+msgstr "Onze diensten"
+
+msgid "Our solutions"
+msgstr "Onze oplossingen"
+
+msgid "Select LIBISzine..."
+msgstr "Kies een LIBISzine..."
+
+msgid "Popular"
+msgstr "Populair"
+
+msgid "Our partners"
+msgstr "Onze partners"
+
+msgid "Our team"
+msgstr "Ons team"
+
+msgid "KU Leuven Libraries"
+msgstr "KU Leuven Bibliotheken"
+
+msgid "Contact us"
+msgstr "Contacteer ons"
+
+msgid "Need Info?"
+msgstr "Info nodig?"
+
+msgid "/en/CollectionsData"
+msgstr "/CollectiesData"
+
+msgid "/en/news"
+msgstr "/nieuws"
+
+msgid "/en/ServiceTools"
+msgstr "/DienstenTools"
+
+msgid "/en/ExpertiseConsultancy"
+msgstr "/ExpertiseConsultancy"
+
+msgid "/en/ResearchInfrastructure"
+msgstr "/onderzoeksinfrastructuur"
+
+msgid "/en/TeamNetwork"
+msgstr "/TeamNetwork"
+
+msgid "/en/AboutUs"
+msgstr "/OverOns"
+
+msgid "/en/contact"
+msgstr "/contact"
+
+msgid "/en/history"
+msgstr "/geschiedenis"
+
+msgid "/en/help"
+msgstr "/help"
+
+msgid "/en/suppliers"
+msgstr "/leveranciers"
+
+msgid "/en/meetourteam"
+msgstr "/meetourteam"
+
+msgid "/en/partners"
+msgstr "/partners"
+
+msgid "/en/peers"
+msgstr "/peers"
+
+msgid "/en/showcases"
+msgstr "/showcases"
+
+msgid "/en/home"
+msgstr "/home"
+
+msgid "/pro-en/home"
+msgstr "/pro/home"
+
+msgid "/pro-en/TeamNetwork"
+msgstr "/pro/TeamNetwork"
+
+msgid "/pro-en/library"
+msgstr "/pro/bibliotheek"
+
+msgid "/pro-en/archive"
+msgstr "/pro/archief"
+
+msgid "/pro-en/heritage"
+msgstr "/pro/erfgoed"
+
+msgid "http://www.kuleuven.be/english"
+msgstr "http://www.kuleuven.be"
+
+msgid "https://bib.kuleuven.be/english"
+msgstr "https://bib.kuleuven.be"
+
+msgid "LIBIS is an IT organization and scientific service provider, responsible for the deployment and management of systems and processes to support a FAIR approach to various collections and research data of KU Leuven, the Association and its partners. In close collaboration with research groups, we use our data driven expertise in the development of virtual research environments through participation in (inter)national projects, networks and research."
+msgstr "LIBIS is een IT-organisatie en wetenschappelijke dienstverlener, verantwoordelijk voor de ontplooiing en het beheer van systemen en processen ter ondersteuning van een FAIR-benadering van diverse collecties en onderzoeksgegevens van de KU Leuven, de Associatie en haar partners. In nauwe samenwerking met onderzoeksgroepen gebruiken we onze datadriven expertise in de ontwikkeling van virtuele onderzoeksomgevingen door deelname aan (inter)nationale projecten, netwerken en onderzoek."
