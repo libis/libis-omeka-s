@@ -117,13 +117,13 @@ natsort($years);?>
                     if(is_numeric($tag)): 
                       $yeartags[] = $tag;
                     else: ?>
-                  <a style="text-decoration: none;" class="badge bg-primary" href="/s/libis/index/search?fulltext_search=<?php echo $tag; ?>"><?php echo $tag; ?></a>
+                  <a style="text-decoration: none;" class="badge bg-primary" href="/index/search?fulltext_search=<?php echo $tag; ?>"><?php echo $tag; ?></a>
                   <?php endif;?>    
                   <?php endforeach; ?>
                   <?php if($yeartags):
                   natcasesort($yeartags);
                   foreach($yeartags as $yeartag):?>
-                    <a style="text-decoration: none;" class="badge bg-primary" href="/s/libis/index/search?fulltext_search=<?php echo $yeartag; ?>"><?php echo $yeartag; ?></a>
+                    <a style="text-decoration: none;" class="badge bg-primary" href="/index/search?fulltext_search=<?php echo $yeartag; ?>"><?php echo $yeartag; ?></a>
                   <?php endforeach; endif;?>    
             </cite>  
             </div>
