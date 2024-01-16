@@ -29,137 +29,9 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
   $home = false;
 }
 ?>
+<?php echo $this->doctype(); ?>
+<?php echo $this->htmlElement('html'); ?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-<!-- Add the slick-theme.css if you want default styling -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<!-- Add the slick-theme.css if you want default styling -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-
-<style>
-  body {
-  text-align: justify;
-  word-break: break-word;
-  }
-  .figure {
-    position: relative;
-  }
-  .figure img {
-    display:block;
-  }
-  .figure div {
-    position: absolute;
-    bottom: 16.5;
-    right: 0;
-  }
-  .figure div a {
-    text-decoration: none;
-    color: white;
-  }
-  .app {
-  display: grid;
-  grid-gap: 15px; 
-  overflow: hidden;
-/*   grid-template-columns: repeat(auto-fill, 200px); */
-  /*grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-/*   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr) 150px); */
-  grid-template-columns: repeat(2, minmax(90px, 1fr)) 90px minmax(90px, 1fr);
-  grid-auto-flow: dense;
-  }
-  .item {
-    text-align: center;
-    place-items: center;
-    border: solid 2px;
-    border-color: cadetblue;
-    padding: 2%;
-    margin-bottom: 0%;
-  }
-  .item:hover{
-    border-color: darkblue;
-  }
-  .item img {
-    height: 76px;
-    width: 76px;
-  }
-  .item-a {
-    grid-column: 1 / 2;
-  }
-  .item-b {
-    grid-column: 4 / 5;
-  }
-  .item-c {
-    grid-column: 2 / 3;
-  }
-  .nav-link {
-    color: #004070;
-  }
-  .hidden, .footer-section-2 > .hidden {
-    display: none;
-  }
-  .footer-section-2 .nav-item > .nav-link {
-    padding: 0.2rem 1rem;
-    font-size: 0.9rem;
-  }
-  #libisnetbtn {
-    border-color: rgb(193, 215, 46);
-  }
-  #libisnetbtn:hover {
-    background-color: rgb(193, 215, 46);
-  }
-  #libisnetbtn > a {
-    color: rgb(141,161,32);
-  }
-  #libisnetbtn:hover > a {
-    color: rgb(255,255,255);
-  }
-  #heronbtn {
-    border-color: rgb(202, 45, 146);
-  }
-  #heronbtn:hover {
-    background-color: rgb(202, 45, 146);
-  }
-  #heronbtn > a {
-    color: rgb(136,19,98);
-  }
-  #heronbtn:hover > a {
-    color: rgb(255,255,255);
-  }
-  #icandidbtn:hover > a {
-    color: rgb(255, 255, 255);
-  }
-  .openimage {
-  cursor: zoom-in;
-  }
-  .dropdown-item:hover{
-    cursor: pointer;
-  }
-  @media (max-width:980px){
-    .nav-link {
-      width: 100% !important;
-      display: block !important;
-      text-decoration: none !important;
-      text-align: center !important;
-    }
-    .footer-section-2 > .hide-small, .hide-small {
-      display: none !important;
-    }
-    .small-nav{
-      display: flex !important;
-    }
-  }
-  @media (max-width:800px){
-    .flex-image-figure {
-      flex-direction: column !important;
-    }
-  @media (max-width:670px){
-    .app {
-      grid-template-columns: repeat(2, minmax(90px, 1fr)) 0px minmax(90px, 1fr);
-    }
-  }
-  }
-</style>
 
     <head>
         <?php echo $this->headMeta(); ?>
@@ -167,9 +39,139 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
         <?php echo $this->headLink(); ?>
         <?php echo $this->headStyle(); ?>
         <?php echo $this->headScript(); ?>
-        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!-- Add the slick-theme.css if you want default styling -->
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+        <!-- Add the slick-theme.css if you want default styling -->
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+        <style>
+          body {
+            text-align: justify;
+            word-break: break-word;
+          }
+          .figure {
+            position: relative;
+          }
+          .figure img {
+            display:block;
+          }
+          .figure div {
+            position: absolute;
+            /*bottom: 16.5;*/
+            right: 0;
+          }
+          .figure div a {
+            text-decoration: none;
+            color: white;
+          }
+          .app {
+            display: grid;
+            grid-gap: 15px; 
+            overflow: hidden;
+          /*   grid-template-columns: repeat(auto-fill, 200px); */
+            /*grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          /*   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr) 150px); */
+            grid-template-columns: repeat(2, minmax(90px, 1fr)) 90px minmax(90px, 1fr);
+            grid-auto-flow: dense;
+          }
+          .item {
+            text-align: center;
+            place-items: center;
+            border: solid 2px;
+            border-color: cadetblue;
+            padding: 2%;
+            margin-bottom: 0%;
+          }
+          .item:hover{
+            border-color: darkblue;
+          }
+          .item img {
+            height: 76px;
+            width: 76px;
+          }
+          .item-a {
+            grid-column: 1 / 2;
+          }
+          .item-b {
+            grid-column: 4 / 5;
+          }
+          .item-c {
+            grid-column: 2 / 3;
+          }
+          .nav-link {
+            color: #004070;
+          }
+          .hidden, .footer-section-2 > .hidden {
+            display: none;
+          }
+          .footer-section-2 .nav-item > .nav-link {
+            padding: 0.2rem 1rem;
+            font-size: 0.9rem;
+          }
+          #libisnetbtn {
+            border-color: rgb(193, 215, 46);
+          }
+          #libisnetbtn:hover {
+            background-color: rgb(193, 215, 46);
+          }
+          #libisnetbtn > a {
+            color: rgb(141,161,32);
+          }
+          #libisnetbtn:hover > a {
+            color: rgb(255,255,255);
+          }
+          #heronbtn {
+            border-color: rgb(202, 45, 146);
+          }
+          #heronbtn:hover {
+            background-color: rgb(202, 45, 146);
+          }
+          #heronbtn > a {
+            color: rgb(136,19,98);
+          }
+          #heronbtn:hover > a {
+            color: rgb(255,255,255);
+          }
+          #icandidbtn:hover > a {
+            color: rgb(255, 255, 255);
+          }
+          .openimage {
+            cursor: zoom-in;
+          }
+          .dropdown-item:hover{
+            cursor: pointer;
+          }
+          @media (max-width:980px){
+            .nav-link {
+              width: 100% !important;
+              display: block !important;
+              text-decoration: none !important;
+              text-align: center !important;
+            }
+            .footer-section-2 > .hide-small, .hide-small {
+              display: none !important;
+            }
+            .small-nav{
+              display: flex !important;
+            }
+          }
+          @media (max-width:800px){
+            .flex-image-figure {
+              flex-direction: column !important;
+            }
+          @media (max-width:670px){
+            .app {
+              grid-template-columns: repeat(2, minmax(90px, 1fr)) 0px minmax(90px, 1fr);
+            }
+          }
+        }
+        </style>
         <script src="https://kit.fontawesome.com/582fb8c29f.js" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/colcade@0/colcade.js"></script>
 
@@ -188,7 +190,7 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
       <!-- Include global header-->
       <nav class="global-header noindex hidden-print" style="border-bottom-width: 26px;">
         <div class="container">
-        <a class="navbar-brand" href="https://www.kuleuven.be/kuleuven/">
+          <a class="navbar-brand" href="https://www.kuleuven.be/kuleuven/">
             <!-- <img
               class="logo"
               alt="logo"
@@ -204,54 +206,53 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
               width="299"
               height="135"
               style="top:9px;"
-            />
+            >
           </a>
           <div class="navbar-menu">
-          <ul class="nav justify-content-end hide-small" style="align-items: center;">
-          <li class="nav-item">
-    <a class="nav-link" href="<?php echo $translate('/en/help');?>">Helpdesk & Helpdocs</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="<?php echo $translate('/pro-en/home');?>"><?php echo $translate('For professionals');?></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="<?php echo $translate('/en/news');?>"><?php echo $translate('News');?></a>
-  </li>
-  <li class="nav-item">
-     <a class="is-light nav-link" type="button" id="openSearch">
-        <span class="icon is-small">
-          <i class="fas fa-search"></i>
-        </span>
-      </a>   
-      <div class="hidden" id="searchField"><?php echo $this->partial('common/search-form'); ?></div>
-  </li>
-<li class="nav-item">
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #147fa1;">
-  <i class="material-icons">language</i>
-        </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" style="text-decoration: none;" href="/home">Nederlands</a></li>
-    <li><a class="dropdown-item" style="text-decoration: none;" href="/en/home">English</a></li>
-  </ul>
-</div>
-</li>
-</ul>
-          <div class="controls">
-            
-            <a
-              href="#flyout-local-menu"
-              id="burgernav"
-              class="btn-toggle js-flyout-toggle flyout-toggle collapsed"
-              role="button"
-              aria-expanded="false"
-              aria-controls="flyout-local-menu"
-              data-bs-toggle="collapse"
-              data-bs-target="#flyout-local-menu">
-              <span class="lines"></span>
-            </a>
-
-          </div>
+            <ul class="nav justify-content-end hide-small" style="align-items: center;">
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo $translate('/en/help');?>">Helpdesk & Helpdocs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo $translate('/pro-en/home');?>"><?php echo $translate('For professionals');?></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo $translate('/en/news');?>"><?php echo $translate('News');?></a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="is-light nav-link" id="openSearch">
+                    <span class="icon is-small">
+                      <i class="fas fa-search"></i>
+                    </span>
+                  </a>   
+                  <div class="hidden" id="searchField"><?php echo $this->partial('common/search-form'); ?></div>
+              </li>
+              <li class="nav-item">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #147fa1;">
+                <i class="material-icons">language</i>
+                      </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" style="text-decoration: none;" href="/home">Nederlands</a></li>
+                  <li><a class="dropdown-item" style="text-decoration: none;" href="/en/home">English</a></li>
+                </ul>
+              </div>
+              </li>
+            </ul>
+            <div class="controls">            
+              <a
+                href="#flyout-local-menu"
+                id="burgernav"
+                class="btn-toggle js-flyout-toggle flyout-toggle collapsed"
+                role="button"
+                aria-expanded="false"
+                aria-controls="flyout-local-menu"
+                data-bs-toggle="collapse"
+                data-bs-target="#flyout-local-menu">
+                <span class="lines"></span>
+              </a>
+            </div>
+          </div>  
         </div>
       </nav>
 
@@ -364,7 +365,7 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
           <?php echo $footerContent; ?>        
         <?php endif; ?>
           <div class="fheader row container">
-            <div class="flogo"><a href="<?php echo $site->url(); ?>"><img width="107" height="38" src="<?php echo $this->assetUrl('img/libis_white_jr.png');?>"></a></div>
+            <div class="flogo"><a href="<?php echo $site->url(); ?>"><img alt="logo" width="107" height="38" src="<?php echo $this->assetUrl('img/libis_white_jr.png');?>"></a></div>
             
           </div>
           <div id="subnav" class="row"></div>
@@ -530,45 +531,46 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
 
 
 
-    </div><a class="scroll-to-top" href="#top" style="display: block;">
+    <div><a class="scroll-to-top" href="#top" style="display: block;">
       <i class="material-icons">keyboard_arrow_up</i></a>
-
     </div>
     <!-- Include flyout-->
     <aside
       class="flyout flyout-default l-flyout noindex hidden-print hidden-lg-up collapse"
       id="flyout-local-menu"
     >
-    <nav class="nav nav-logo">
-    <a id="close-x" href="#" class="btn-toggle hidden-lg-up js-flyout-toggle flyout-toggle" role="button" aria-expanded="true" aria-controls="flyout-menu" data-bs-toggle="collapse" data-bs-target="#flyout-local-menu">
-        <span class="arrow"></span></a>      
-    </nav>
+      <nav class="nav nav-logo">
+      <a id="close-x" href="#" class="btn-toggle hidden-lg-up js-flyout-toggle flyout-toggle" role="button" aria-expanded="true" aria-controls="flyout-menu" data-bs-toggle="collapse" data-bs-target="#flyout-local-menu">
+          <span class="arrow"></span></a>      
+      </nav>
 
-    <nav class="nav nav-main">
-      <a href="<?php echo $site->url(); ?>"><?php echo $site->title();?></a>
-      <div id="portal-globalnav">
-      <?php
-        echo $site->publicNav()->menu()->renderMenu(null, [
-            'maxDepth' => $this->themeSetting('nav_depth') - 1
-        ]);
-      ?>
-        <li>
-          <a href="<?php echo $translate('/en/help');?>">Helpdesk & Helpdocs</a>
-        </li>
-        <li>
-          <a href="<?php echo $translate('/pro-en/home');?>"><?php echo $translate('For professionals');?></a>
-        </li>
-        <li>
-          <a href="<?php echo $translate('/en/news');?>"><?php echo $translate('News');?></a>
-        </li>
-<li>
-  <ul class="list-group list-group-horizontal" style="background-color: transparent;">
-    <li class="list-group-item" style="border: none;background-color: transparent;"><a href="/home">Nederlands</a></li>
-    <li class="list-group-item" style="padding:0.75rem 1.25rem;background-color: transparent;"><a href="/en/home">English</a></li>
-  </ul>
-</li>
-      </div>
-    </nav>
+      <nav class="nav nav-main">
+        <a href="<?php echo $site->url(); ?>"><?php echo $site->title();?></a>
+        <div id="portal-globalnav">
+        <?php
+          echo $site->publicNav()->menu()->renderMenu(null, [
+              'maxDepth' => $this->themeSetting('nav_depth') - 1
+          ]);
+        ?>
+        <ul class="navigation">
+          <li>
+            <a href="<?php echo $translate('/en/help');?>">Helpdesk & Helpdocs</a>
+          </li>
+          <li>
+            <a href="<?php echo $translate('/pro-en/home');?>"><?php echo $translate('For professionals');?></a>
+          </li>
+          <li>
+            <a href="<?php echo $translate('/en/news');?>"><?php echo $translate('News');?></a>
+          </li>
+          <li>
+            <ul class="list-group list-group-horizontal" style="background-color: transparent;">
+              <li class="list-group-item" style="border: none;background-color: transparent;"><a href="/home">Nederlands</a></li>
+              <li class="list-group-item" style="padding:0.75rem 1.25rem;background-color: transparent;"><a href="/en/home">English</a></li>
+            </ul>
+          </li>
+        </ul>  
+        </div>
+      </nav>
 
     <div class="search-menu modal">
       <div class="modal-background"></div>
@@ -593,13 +595,10 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
     </aside>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <!-- <script src="../js/all.min.js"></script> -->
-  
-  </body>
-
-  
+   
   <script>
   function OpenImage(url) {
-  window.open(url,'_blank');
+    window.open(url,'_blank');
   }
   $(document).ready(function() {
     // Check for click events on the navbar burger icon
@@ -609,10 +608,11 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
     //     $(".burger-menu").toggleClass("is-active");
     // });
 
-    $("#openSearch").click(function() {
-    $("#searchField").removeClass("hidden");
-    $("#openSearch").removeClass("nav-link");
-    $("#openSearch").addClass("hidden");
+    $("#openSearch").click(function(e) {
+      e.preventDefault();
+      $("#searchField").removeClass("hidden");
+      $("#openSearch").removeClass("nav-link");
+      $("#openSearch").addClass("hidden");
     });
 
     $(".search-menu-close").click(function() {
@@ -637,14 +637,8 @@ if ((strpos($url, '/home') !== false) || $url == "https://libis.be/" || $url == 
       cssEase: 'linear',
       arrows: false
     });
-
-
     //$(".navigation li:nth-last-child(3) a").attr('target', '_blank');
   });
   </script>
-
-
-<!-- Latest compiled and minified JS -->
-
-
+  </body>
 </html>
