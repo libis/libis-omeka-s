@@ -8,9 +8,7 @@
 **/*.log
 **/*.manifest
 **/*.md
-**/*.mo
 **/*.orig
-**/*.pot
 **/*.rst
 **/*.spec
 **/*.sql
