@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.0.28-apache
 
 RUN a2enmod rewrite
 
@@ -17,7 +17,8 @@ RUN apt-get -qq update && apt-get -qq -y --no-install-recommends install \
     libmagickwand-dev \
     wget \
     ghostscript \
-    ffmpeg
+    ffmpeg \
+    dos2unix
 
 # Mail
 RUN apt-get update && \
@@ -40,6 +41,10 @@ RUN usermod -u 1000 www-data \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s /var/www/html/ \
 &&  chown -R www-data:www-data /var/www/html/
+
+# Content
+COPY themes /var/www/html/themes
+COPY modules /var/www/html/modules  
 
 ADD php.ini-development /usr/local/etc/php
 
