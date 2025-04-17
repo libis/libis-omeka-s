@@ -1,9 +1,8 @@
-version: '2'
-
 services:
-
   omeka-s:
     build: ./
+    networks:
+     - my-network
     ports:
       - "9014:80"
     volumes:
@@ -14,3 +13,8 @@ services:
       - ./htaccess:/var/www/html/.htaccess
       - ./imagemagick-policy.xml:/var/www/html/imagemagick-policy.xml
     restart: "no"
+
+networks:
+  my-network:
+    external:
+      name: dev-network

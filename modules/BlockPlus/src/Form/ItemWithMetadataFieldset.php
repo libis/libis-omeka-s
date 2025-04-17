@@ -49,6 +49,23 @@ class ItemWithMetadataFieldset extends Fieldset
                 ],
             ])
             ->add([
+                'name' => 'o:block[__blockIndex__][o:data][checkNewsbutton]',
+                'type' => Element\Checkbox::class,
+                'options' => [
+                    'label' => 'Do you want a button to more news', // @translate
+                ],
+            ])
+            ->add([
+                'name' => 'o:block[__blockIndex__][o:data][newsButton]',
+                'type' => Element\Textarea::class,
+                'options' => [
+                    'label' => 'Text news button', // @translate
+                ],
+                'attributes' => [
+                    'placeholder' => 'More news',
+                ],
+            ])
+            ->add([
                 'name' => 'o:block[__blockIndex__][o:data][template]',
                 'type' => TemplateSelect::class,
                 'options' => [

@@ -8,8 +8,8 @@ $escape = $this->plugin('escapeHtml');
   color: #fff;
   padding: 3px 10px;
   text-align: center;
-  position: relative;
-  bottom: 2rem;
+  position: absolute;
+  bottom: 0rem;
   width: inherit;
   font-size: 1rem;
   text-decoration: none;
@@ -52,6 +52,9 @@ $escape = $this->plugin('escapeHtml');
                     <?php $i++;?>
                 <?php endforeach; ?>
                 </div>
+                <?php if($checkNewsbutton && $checkNewsbutton == true): ?>
+                    <a href="<?= $translate('/en/');?><?= $translate("News"); ?>" class="btn btn-ghost more-news-btn"><?= ($newsButton) ? $newsButton : $translate("more news");  ?></a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

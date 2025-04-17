@@ -17,9 +17,11 @@ $showPagePagination = $this->siteSetting('show_page_pagination', true);
     $type = $this->pagesMetadata('type') ?: null;
     $next = $this->pagesMetadata('next',$page) ?: null;
     $previous = $this->pagesMetadata('previous',$page) ?: null;
+    $translate = $this->plugin('translate');
+    ?>
   
 
-    if ($activePage):
+    <?php /*if ($activePage):
       if ($activePage['depth'] !== 0): ?>
       <div class="container">
         <div id="portal-breadcrumbs" class="breadcrumbs" style="display:block;">
@@ -33,13 +35,21 @@ $showPagePagination = $this->siteSetting('show_page_pagination', true);
         </div>
       </div>
       <?php endif; ?>
-    <?php endif; ?>
+    <?php endif;*/ ?>
 
 <?php if ($activePage): ?>
     <?php if ($this->displayNavigation && $activePage['page']->hasPages()): ?>
     <!-- <nav class="sub-menu"><?php echo $nav->menu()->renderSubMenu(); ?></nav> -->
     <?php endif; ?>
 <?php endif; ?>
+
+<?php $lang = $this->lang(); ?>
+<?php if($this->pageMetadata('type') == "exhibit_page"): ?>
+  <div class="container more-news-block">
+    <a href="<?= $translate('/en/');?><?= $translate("News"); ?>"><?= ($lang == "nl-NL") ? "Alle nieuws artikelen" : "All the news items"; ?></a>
+  </div>
+<?php endif; ?>
+
 
 <?php $this->trigger('view.show.before'); ?>
 <?php echo $this->content; ?>
