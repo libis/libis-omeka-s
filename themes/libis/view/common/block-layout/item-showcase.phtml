@@ -3,42 +3,54 @@ $translate = $this->plugin('translate');
 ?>
 
 <section class="section">
-    <div class="row">
-        <div class="col-md-12 text-center" style="margin-bottom: 5px;">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownbutton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?php echo $translate('Select LIBISzine...');?>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownbutton">
-                <?php $i = 1; ?>
-                <?php foreach ($attachments as $attachment): ?>
-                    <?php
-                    $media = $attachment->media();
-                    $titleFile = $media->displayTitle();
-                    ?>
-                    <a class="dropdown-item <?php if ($i == 1):?>active<?php endif;?>" id="buttontab<?php echo $i;?>" value="<?php echo $titleFile; ?>" onclick="ChangeTab('tab<?php echo $i;?>')"><?php echo $titleFile; ?></a>
-                    <?php $i++;?>
-                <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="tab-content">
-            <?php $i = 1; ?>
-            <?php foreach ($attachments as $attachment): ?>
-                <?php
-                $media = $attachment->media();
-                $oUrl = $media->originalUrl(); 
-                $originalUrl = str_replace('http://', 'http://', $oUrl);
-                $oUrl = $originalUrl;
-                ?>
-                <div class="tab-pane <?php if ($i == 1):?>active<?php endif;?>" id="tab<?php echo $i;?>">
-                    <div class="justify-content-center d-flex">
-                        <iframe allowfullscreen="true" src="<?php echo $oUrl; ?>" style="width: 100%; max-width: 800px; height: 800px;"></iframe>
+    <div class="container">
+        <div class="row">
+            <?php if(count($attachments) > 1): ?>
+                <div class="col-md-12 text-center" style="margin-bottom: 5px;">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownbutton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $translate('Select LIBISzine...');?>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownbutton">
+                        <?php $i = 1; ?>
+                        <?php foreach ($attachments as $attachment): ?>
+                            <?php
+                            $media = $attachment->media();
+                            $titleFile = $media->displayTitle();
+                            ?>
+                            <a class="dropdown-item <?php if ($i == 1):?>active<?php endif;?>" id="buttontab<?php echo $i;?>" value="<?php echo $titleFile; ?>" onclick="ChangeTab('tab<?php echo $i;?>')"><?php echo $titleFile; ?></a>
+                            <?php $i++;?>
+                        <?php endforeach; ?>
+                        </ul>
                     </div>
                 </div>
-                <?php $i++;?>
-            <?php endforeach; ?>
+            <?php endif; ?>
+            <div class="col-md-12">
+                <?php if(count($attachments) > 1): ?>
+                    <div class="tab-content">
+                    <?php $i = 1; ?>
+                    <?php foreach ($attachments as $attachment): ?>
+                        <?php
+                        $media = $attachment->media();
+                        $oUrl = $media->originalUrl(); 
+                        $originalUrl = str_replace('http://', 'http://', $oUrl);
+                        $oUrl = $originalUrl;
+                        ?>
+                        <div class="tab-pane <?php if ($i == 1):?>active<?php endif;?>" id="tab<?php echo $i;?>">
+                            <div class="justify-content-center d-flex">
+                                <iframe allowfullscreen="true" src="<?php echo $oUrl; ?>" style="width: 100%; max-width: 800px; height: 800px;"></iframe>
+                            </div>
+                        </div>
+                        <?php $i++;?>
+                    <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="lightbox">
+                        <iframe class="iframe-pdf" allowfullscreen="true" src="<?= $attachments[0]->media()->originalUrl(); ?>" style="width: 100%; max-width: 1200px; height: 800px;"></iframe>
+                        <?php $thumbnail = $attachments[0]->media()->thumbnailUrl('medium'); ?>
+                        <span class="pdf-thumbnail-item" data-thumbnail="<?= $thumbnail; ?>" data-pdf="<?=  $attachments[0]->media()->originalUrl() ?>" data-pdf-text="<?= $translate("Open the pdf") ?>"></span>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -54,4 +66,48 @@ $translate = $this->plugin('translate');
         $("." + tab).addClass("active");
         $("#" + tab).addClass("active");
     }
+    window.addEventListener('load', () => {
+    if (window.innerWidth <= 1024) {
+        var lightbox = document.querySelector(".iframe-pdf");
+
+        if(lightbox != null) {
+            var lightboxWrapper = lightbox.parentNode;
+            var elementSpan = lightboxWrapper.querySelector(".pdf-thumbnail-item");
+            var thumbnailUrl = elementSpan.dataset.thumbnail;
+            var pdfUrl = elementSpan.dataset.pdf;
+            var textUnderThumbnail = elementSpan.dataset.pdfText;
+            
+            //create thummnail box with image
+            var mediaEmbedsBox = document.createElement('div');
+            mediaEmbedsBox.className = "media-embeds w-100";
+
+            var mediaRenderBox = document.createElement('div');
+            mediaRenderBox.className = "media-render";
+
+            var linkPdfElement = document.createElement('a');
+            linkPdfElement.setAttribute("href", pdfUrl);
+            linkPdfElement.setAttribute("target", "blank");
+            linkPdfElement.className = "element-pdf-link";
+
+            var thumbnail = document.createElement('img');
+            thumbnail.setAttribute("src", thumbnailUrl);
+
+            var linkPdftext = document.createElement('p');
+            linkPdftext.innerHTML = textUnderThumbnail;
+            linkPdftext.className = "link-to-pdf-text";
+
+            linkPdfElement.appendChild(thumbnail);
+            linkPdfElement.appendChild(linkPdftext);
+
+            mediaRenderBox.appendChild(linkPdfElement);
+            mediaEmbedsBox.appendChild(mediaRenderBox);
+
+            lightboxWrapper.appendChild(mediaEmbedsBox);
+            elementSpan.remove();
+
+            //delete lightbox
+            lightbox.style.display = "none";
+        }
+    };
+  }); 
 </script>

@@ -35,7 +35,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 
 RUN usermod -u 1000 www-data \
-&& wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.0/omeka-s-3.2.0.zip" -O /var/www/omeka-s.zip \
+&& wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.3/omeka-s-3.2.3.zip" -O /var/www/omeka-s.zip \
 && unzip -q /var/www/omeka-s.zip -d /var/www/ \
 &&  rm /var/www/omeka-s.zip \
 &&  rm -rf /var/www/html/ \
@@ -50,6 +50,8 @@ ADD php.ini-development /usr/local/etc/php
 
 COPY extra.ini /usr/local/etc/php/conf.d/
 COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
+RUN sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
 
 # Mail config
 COPY update-exim4.conf.conf /etc/exim4/update-exim4.conf.conf
