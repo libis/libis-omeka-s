@@ -3,9 +3,9 @@ $translate = $this->plugin('translate');
 
 $orderPages = array();
 foreach($pages as $page):
-  $orderPages[] = $page->dataValue('order');
+  $orderPages[] = strtotime($page->dataValue('order'));
 endforeach;
-array_multisort($orderPages,$pages);
+array_multisort($orderPages, SORT_DESC, $pages);
 
 $serverurl = $this->serverUrl(true);
 if (strpos($serverurl, 'page/news') !== false) {
