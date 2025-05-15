@@ -10,7 +10,6 @@ foreach($pages as $page):
   else {
     $dateParts = explode('-', $page->dataValue('order')); 
   }
-  var_dump($dateParts);
   $formattedDate = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0]; 
   $orderPages[] = strtotime($formattedDate);
 endforeach;
