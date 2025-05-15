@@ -3,9 +3,19 @@ $translate = $this->plugin('translate');
 
 $orderPages = array();
 foreach($pages as $page):
-  $orderPages[] = strtotime($page->dataValue('order'));
+  if(str_contains($page->dataValue('order'), "/"))
+  {
+    $dateParts = explode('/', $page->dataValue('order')); 
+  }
+  else {
+    $dateParts = explode('-', $page->dataValue('order')); 
+  }
+  var_dump($dateParts);
+  $formattedDate = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0]; 
+  $orderPages[] = strtotime($formattedDate);
 endforeach;
 array_multisort($orderPages, SORT_DESC, $pages);
+
 
 $serverurl = $this->serverUrl(true);
 if (strpos($serverurl, 'page/news') !== false) {
